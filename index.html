@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Množinové operace</title>
+<script>
+    
+    var A = new Set([1, 2, 3, 4, 5]);
+    var B = new Set([4, 5, 6, 7, 8]);
+    var C = new Set([3, 4, 5]);
+
+    function prunikMnozin(mnozina1, mnozina2) {
+        var prunik = new Set([...mnozina1].filter(x => mnozina2.has(x)));
+        return prunik;
+    }
+
+
+    function sjednoceniMnozin(mnozina1, mnozina2) {
+        var sjednoceni = new Set([...mnozina1, ...mnozina2]);
+        return sjednoceni;
+    }
+
+    function doplnekMnoziny(mnozina1, mnozina2) {
+        var doplnek = new Set([...mnozina2].filter(x => !mnozina1.has(x)));
+        return doplnek;
+    }
+
+    
+    function zobrazVysledek(operace, vysledek) {
+        document.getElementById("vysledek").innerHTML += "<p>" + operace + ": {" + Array.from(vysledek).join(", ") + "}</p>";
+    }
+
+ 
+    function provedOperace() {
+        var prunik = prunikMnozin(A, C);
+        var sjednoceni = sjednoceniMnozin(A, B);
+        var doplnek = doplnekMnoziny(A, B);
+
+        zobrazVysledek("Průnik množiny A a množiny C", prunik);
+        zobrazVysledek("Sjednocení množiny A a množiny B", sjednoceni);
+        zobrazVysledek("Doplňek množiny A vzhledem k množině B", doplnek);
+    }
+</script>
+</head>
+<body>
+<button onclick="provedOperace()">Provést operace</button>
+<div id="vysledek"></div>
+
+<h2>Vstupní množiny:</h2>
+<p>Množina A: {1, 2, 3, 4, 5}</p>
+<p>Množina B: {4, 5, 6, 7, 8}</p>
+<p>Množina C: {3, 4, 5}</p>
+
+<script>
+const A = new Set([1, 2, 3, 4, 5]);
+const B = new Set([4, 5, 6, 7, 8]);
+const C = new Set([3, 4, 5]);
+
+
+const intersectionAB = new Set([...A].filter(x => B.has(x)));
+document.write("<p>Průnik množin A a B: {" + Array.from(intersectionAB).join(', ') + "}</p>");
+
+
+const unionAB = new Set([...A, ...B]);
+document.write("<p>Sjednocení množin A a B: {" + Array.from(unionAB).join(', ') + "}</p>");
+
+
+const differenceAB = new Set([...A].filter(x => !B.has(x)));
+document.write("<p>Rozdíl množin A a B: {" + Array.from(differenceAB).join(', ') + "}</p>");
+
+
+const subsetCheck = [...C].every(x => A.has(x));
+document.write("<p>Množina C je podmnožinou množiny A: " + subsetCheck + "</p>");
+</script>
+
+</body>
+</html>
